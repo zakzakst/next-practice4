@@ -1,0 +1,11 @@
+.toaster {
+  [data-sonner-toast][data-styled="true"] {
+    /* TODO: 背景用の色をカスタムプロパティで作る */
+    &[data-type="error"] {
+      background: #fdd;
+    }
+    &[data-type="success"] {
+      background: #dfd;
+    }
+  }
+}

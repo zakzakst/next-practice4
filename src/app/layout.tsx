@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { Toaster } from "@/components/ui/sonner";
 import { fontNotoSansJp, fontNotoSansMono } from "@/app/fonts";
 import "./globals.css";
+import styles from "./layout.module.css";
 
 export const metadata: Metadata = {
   title: "サンプルサイト",
@@ -18,6 +20,7 @@ export default function RootLayout({
         className={`${fontNotoSansJp.variable} ${fontNotoSansMono.variable} antialiased`}
       >
         {children}
+        <Toaster className={styles.toaster} />
       </body>
     </html>
   );

@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { TextboxWithError } from "@/components/molecules/textboxWithError";
 import { isObjectEmpty } from "@/lib/utils2";
 import { validationMessages } from "@/lib/messages";
+import { toast } from "sonner";
 
 const loginFormValuesSchema = z.object({
   email: z.string().email(validationMessages.email),
@@ -32,7 +33,7 @@ export const Login = () => {
   });
 
   const onSubmit = (data: LoginFormValues) => {
-    console.log(data);
+    toast.error(JSON.stringify(data));
   };
 
   return (
