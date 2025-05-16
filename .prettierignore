@@ -3,6 +3,7 @@ node_modules/
 public/
 package-lock.json
 next.config.ts
+out/
 
 # shadcn/ui関連
 src/components/ui/
