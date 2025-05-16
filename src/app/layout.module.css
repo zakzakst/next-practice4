@@ -4,6 +4,7 @@
     &[data-type="error"] {
       background: #fdd;
     }
+
     &[data-type="success"] {
       background: #dfd;
     }
