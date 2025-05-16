@@ -1,0 +1,9 @@
+node_modules/
+.next/
+public/
+package-lock.json
+next.config.ts
+
+# shadcn/ui関連
+src/components/ui/
+src/lib/utils.ts

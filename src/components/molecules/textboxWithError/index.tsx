@@ -1,9 +1,9 @@
 "use client";
 
+import { useId } from "react";
 import { useController } from "react-hook-form";
 import type { Control, RegisterOptions } from "react-hook-form";
 import { Input } from "@/components/ui/input";
-import { useId } from "react";
 
 type OwnProps = {
   name: string;
@@ -35,7 +35,7 @@ export const TextboxWithError = ({ name, control, rules, ...rest }: Props) => {
         {...rest}
       />
       {error && (
-        <p className="text-sm text-red-500 mt-1" id={errorMessageId}>
+        <p className="mt-1 text-sm text-red-500" id={errorMessageId}>
           {error.message}
         </p>
       )}

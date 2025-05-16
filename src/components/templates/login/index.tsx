@@ -1,13 +1,14 @@
 "use client";
 
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import { z } from "zod";
 import { TextboxWithError } from "@/components/molecules/textboxWithError";
-import { isObjectEmpty } from "@/lib/utils2";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import { validationMessages } from "@/lib/messages";
+import { isObjectEmpty } from "@/lib/utils2";
 
 const loginFormValuesSchema = z.object({
   email: z.string().email(validationMessages.email),
@@ -32,13 +33,13 @@ export const Login = () => {
   });
 
   const onSubmit = (data: LoginFormValues) => {
-    console.log(data);
+    toast.error(JSON.stringify(data));
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="p-4 mx-auto max-w-md">
+    <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-md p-4">
       <div className="grid items-center">
-        <div className="border p-4 rounded grid gap-4">
+        <div className="grid gap-4 rounded border p-4">
           <div className="grid gap-2">
             <Label htmlFor="email">メールアドレス</Label>
             <TextboxWithError name="email" control={control} type="email" />

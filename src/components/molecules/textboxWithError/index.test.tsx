@@ -1,17 +1,17 @@
-import { render, screen, act } from "@testing-library/react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { TextboxWithError } from "./";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { validationMessages } from "@/lib/messages";
+import { TextboxWithError } from "./";
 
 const user = userEvent.setup();
 
 const TestComponent = () => {
   const { control, handleSubmit } = useForm<{ email: string }>({
     resolver: zodResolver(
-      z.object({ email: z.string().email(validationMessages.email) })
+      z.object({ email: z.string().email(validationMessages.email) }),
     ),
     defaultValues: { email: "" },
   });
@@ -43,7 +43,7 @@ describe("TextboxWithError", () => {
       expect(screen.getByDisplayValue(InvalidText)).toBeInTheDocument();
       expect(inputEl).not.toBeInvalid();
       expect(inputEl).not.toHaveAccessibleErrorMessage(
-        validationMessages.email
+        validationMessages.email,
       );
     });
     await user.click(screen.getByRole("button", { name: "送信" }));
@@ -58,7 +58,7 @@ describe("TextboxWithError", () => {
       // 正しいテキストを入力しなおしたら、エラーが消える
       expect(inputEl).not.toBeInvalid();
       expect(inputEl).not.toHaveAccessibleErrorMessage(
-        validationMessages.email
+        validationMessages.email,
       );
     });
   });
