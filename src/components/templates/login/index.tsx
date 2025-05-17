@@ -1,21 +1,19 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { ApiError } from "@/app/api";
 import { usePostLogin } from "@/app/api/login/swr";
 import { LoginForm, LoginFormValues } from "@/components/organisms/loginForm";
+import { useUserAction } from "@/providers/user/hook";
 
 export const Login = () => {
-  const router = useRouter();
+  const { setUserState } = useUserAction();
   const { trigger, isMutating } = usePostLogin();
 
   const onSubmit = async (data: LoginFormValues) => {
     try {
       const res = await trigger(data);
-      // TODO: user providerにユーザー情報設定
-      console.log(res);
-      router.push(res.redirectUrl);
+      setUserState(res.user);
     } catch (e) {
       if (e instanceof ApiError) {
         toast.error(e.message);
