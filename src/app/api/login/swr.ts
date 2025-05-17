@@ -1,4 +1,5 @@
 import useSWRMutation from "swr/mutation";
+import { PostLoginResponseMock } from "@/mocks/login";
 import { ApiError, UnknownApiError, defaultHeaders, host } from "..";
 import {
   PostLoginErrorCode,
@@ -11,6 +12,10 @@ const postLoginFetcher = async (
   url: string,
   { arg }: { arg: PostLoginRequest },
 ): Promise<PostLoginResponse> => {
+  // 開発中のみ利用：Nextjsのapiが使えない場合、固定の値を返す
+  if (process.env.NEXT_PUBLIC_FEATURE_ABLE_MOCK === "false")
+    return PostLoginResponseMock;
+
   const res = await fetch(url, {
     method: "POST",
     headers: defaultHeaders,
