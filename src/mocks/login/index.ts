@@ -1,16 +1,6 @@
 import { ApiErrorBody } from "@/app/api";
 import { PostLoginErrorCode, PostLoginResponse } from "@/app/api/login/type";
-
-const getRedirectUrl = (deployGitHub: boolean) => {
-  // ssgでbuildした時にrouter.pushの挙動が上手くいかなかったため設定
-  if (process.env.NODE_ENV === "production") {
-    const domain = deployGitHub
-      ? "https://zakzakst.github.io"
-      : "http://localhost:3000";
-    return `${domain}${process.env.NEXT_PUBLIC_BASE_PATH}`;
-  }
-  return "/";
-};
+import { getRouterPushPath } from "@/lib/utils2";
 
 export const PostLoginResponseMock: PostLoginResponse = {
   user: {
@@ -18,7 +8,7 @@ export const PostLoginResponseMock: PostLoginResponse = {
     name: "山田太郎",
     thumbnail: "https://picsum.photos/id/237/200/200",
   },
-  redirectUrl: getRedirectUrl(true),
+  redirectUrl: getRouterPushPath("/"),
 };
 
 export const PostLoginErrorBody401Mock: ApiErrorBody<PostLoginErrorCode> = {
