@@ -13,7 +13,7 @@
     "typecheck": "tsc",
     "knip": "knip",
     "test": "jest",
-    "deploy": "next build && gh-pages -d out/next-practice4 --nojekyll"
+    "deploy": "rimraf out && next build && gh-pages -d out/next-practice4 --nojekyll"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
@@ -52,6 +52,7 @@
     "knip": "^5.56.0",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "rimraf": "^6.0.1",
     "serve": "^14.2.4",
     "stylelint-config-recess-order": "^6.0.0",
     "stylelint-config-standard": "^38.0.0",
