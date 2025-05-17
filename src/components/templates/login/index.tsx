@@ -1,9 +1,12 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import { ApiError } from "@/app/api";
+import { usePostLogin } from "@/app/api/login/swr";
 import { TextboxWithError } from "@/components/molecules/textboxWithError";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -23,6 +26,8 @@ const defaultValues: LoginFormValues = {
 };
 
 export const Login = () => {
+  const router = useRouter();
+  const { trigger, isMutating } = usePostLogin();
   const {
     control,
     handleSubmit,
@@ -32,8 +37,17 @@ export const Login = () => {
     defaultValues,
   });
 
-  const onSubmit = (data: LoginFormValues) => {
-    toast.error(JSON.stringify(data));
+  const onSubmit = async (data: LoginFormValues) => {
+    try {
+      const res = await trigger(data);
+      // TODO: user providerにユーザー情報設定
+      console.log(res);
+      router.push(res.redirectUrl);
+    } catch (e) {
+      if (e instanceof ApiError) {
+        toast.error(e.message);
+      }
+    }
   };
 
   return (
@@ -53,7 +67,10 @@ export const Login = () => {
             />
           </div>
           <div>
-            <Button className="w-full" disabled={!isObjectEmpty(errors)}>
+            <Button
+              className="w-full"
+              disabled={!isObjectEmpty(errors) || isMutating}
+            >
               ログイン
             </Button>
           </div>
