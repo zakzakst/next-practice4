@@ -1,3 +1,4 @@
+import { Token } from "@/types/Token";
 import { User } from "@/types/User";
 
 export type PostLoginRequest = {
@@ -8,6 +9,7 @@ export type PostLoginRequest = {
 export type PostLoginResponse = {
   user: User;
   redirectUrl: string;
+  token: Token;
 };
 
 export const PostLoginErrorCodes = [

@@ -9,6 +9,7 @@ export const PostLoginResponseMock: PostLoginResponse = {
     thumbnail: "https://picsum.photos/id/237/200/200",
   },
   redirectUrl: getRouterPushPath("/"),
+  token: "xxxxx",
 };
 
 export const PostLoginErrorBody401Mock: ApiErrorBody<PostLoginErrorCode> = {

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { fontNotoSansJp, fontNotoSansMono } from "@/app/fonts";
 import { Toaster } from "@/components/ui/sonner";
+import { UserProvider } from "@/providers/user/provider";
 import "./globals.css";
 import styles from "./layout.module.css";
 
@@ -19,8 +20,10 @@ export default function RootLayout({
       <body
         className={`${fontNotoSansJp.variable} ${fontNotoSansMono.variable} antialiased`}
       >
-        {children}
-        <Toaster className={styles.toaster} />
+        <UserProvider>
+          {children}
+          <Toaster className={styles.toaster} />
+        </UserProvider>
       </body>
     </html>
   );
