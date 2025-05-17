@@ -1,15 +1,18 @@
+import { User } from "@/types/User";
+
 export type PostLoginRequest = {
   email: string;
   password: string;
 };
 
-// NOTE: メモ
-// https://github.com/frontend-testing-book/nextjs/blob/main/src/services/server/MyProfile/__mock__/fixture.ts
-// providerで初期描画時にAPIをたたく
-// https://github.com/frontend-testing-book/nextjs/blob/main/src/components/providers/LoginUserInfo/LoginUserInfoProvider.tsx
-// リダイレクト？ GetServerSidePropsContext
-// https://github.com/frontend-testing-book/nextjs/blob/main/src/lib/next/gssp.ts
 export type PostLoginResponse = {
-  user: string;
+  user: User;
   redirectUrl: string;
 };
+
+export const PostLoginErrorCodes = [
+  "POST_LOGIN_UNAUTHORIZED",
+  "POST_LOGIN_NOT_FOUND",
+] as const;
+
+export type PostLoginErrorCode = (typeof PostLoginErrorCodes)[number];
