@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useCallback, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { useToken } from "@/hooks/useToken";
 import { getRouterPushPath } from "@/lib/utils2";
 import { UserActionContext, UserState, UserStateContext } from "./context";
 
@@ -14,22 +15,26 @@ export const UserProvider = ({ children }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
   const [state, setState] = useState<UserState | null>(null);
+  const { setUserByTokenCookie } = useToken();
 
   useEffect(() => {
-    if (pathname === "/login/") {
-      // ログインページの場合
-      if (state) {
-        // ユーザー情報が設定されていれば、トップページへ遷移
+    if (state) {
+      // ユーザー情報が設定されている場合
+      if (pathname === "/login/") {
+        // ログインページの場合、トップページへ遷移
         router.push(getRouterPushPath("/"));
       }
     } else {
-      // ログイン以外のページの場合
-      if (!state) {
-        // ユーザー情報が設定されていなければ、ログインページへ遷移
+      const user = setUserByTokenCookie();
+      if (user) {
+        setState(user);
+      }
+      if (!user && pathname !== "/login/") {
+        // ユーザー情報の取得ができず、ログイン以外のページの場合、ログインページへ遷移
         router.push(getRouterPushPath("/login/"));
       }
     }
-  }, [state, router, pathname]);
+  }, [state, router, pathname, setUserByTokenCookie]);
 
   const setUserState = useCallback((state?: UserState) => {
     if (!state) return;

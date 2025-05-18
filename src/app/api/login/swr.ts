@@ -34,7 +34,7 @@ const postLoginFetcher = async (
 
 export const usePostLogin = () => {
   const { trigger, error, isMutating } = useSWRMutation(
-    host("/login"),
+    host("/login/"),
     postLoginFetcher,
   );
   return {
