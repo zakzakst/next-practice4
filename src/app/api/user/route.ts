@@ -8,6 +8,8 @@ import {
 import { ApiErrorBody, UnknownErrorBody } from "..";
 import { GetUserResponse } from "./type";
 
+export const dynamic = "force-static";
+
 export const GET = async (
   request: NextRequest,
 ): Promise<NextResponse<GetUserResponse | ApiErrorBody<string>>> => {
@@ -32,3 +34,5 @@ export const GET = async (
 
   return NextResponse.json(GetUserResponseMock);
 };
+
+export const POST = () => {};
