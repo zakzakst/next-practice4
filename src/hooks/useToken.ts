@@ -32,8 +32,14 @@ export const useToken = () => {
     }
   };
 
+  // cookieをクリアする
+  const clearTokenCookie = () => {
+    Cookies.remove(TOKEN_COOKIE_KEY);
+  };
+
   return {
     setTokenCookie,
     setUserByTokenCookie,
+    clearTokenCookie,
   };
 };
