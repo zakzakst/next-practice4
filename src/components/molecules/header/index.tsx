@@ -10,6 +10,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
+import { useLogout } from "@/hooks/useLogout";
 import { useUserState } from "@/providers/user/hook";
 
 type Props = React.ComponentProps<"header">;
@@ -17,6 +18,8 @@ type Props = React.ComponentProps<"header">;
 export const Header = ({ className, ...rest }: Props) => {
   const user = useUserState();
   const pathname = usePathname();
+  const logout = useLogout();
+
   return (
     <header
       className={clsx(
@@ -57,7 +60,9 @@ export const Header = ({ className, ...rest }: Props) => {
                 </span>
               </PopoverTrigger>
               <PopoverContent className="w-fit">
-                <Button variant="link">ログアウト</Button>
+                <Button variant="link" onClick={() => logout()}>
+                  ログアウト
+                </Button>
               </PopoverContent>
             </Popover>
           </div>

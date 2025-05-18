@@ -31,7 +31,8 @@ export const UserProvider = ({ children }: Props) => {
           if (user) {
             setState(user);
           } else {
-            if (pathname !== "/") {
+            // ログインしていなくても見れるページ以外の場合、ログインページへ遷移
+            if (!["/"].includes(pathname)) {
               router.push(getRouterPushPath("/login/"));
             }
           }
