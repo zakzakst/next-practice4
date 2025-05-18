@@ -18,22 +18,24 @@ export const UserProvider = ({ children }: Props) => {
   const { setUserByTokenCookie } = useToken();
 
   useEffect(() => {
-    if (state) {
-      // ユーザー情報が設定されている場合
-      if (pathname === "/login/") {
-        // ログインページの場合、トップページへ遷移
-        router.push(getRouterPushPath("/"));
+    (async () => {
+      if (state) {
+        // ユーザー情報が設定されている場合
+        if (pathname === "/login/") {
+          // ログインページの場合、トップページへ遷移
+          router.push(getRouterPushPath("/"));
+        }
+      } else {
+        if (pathname !== "/login/") {
+          const user = await setUserByTokenCookie();
+          if (user) {
+            setState(user);
+          } else {
+            router.push(getRouterPushPath("/login/"));
+          }
+        }
       }
-    } else {
-      const user = setUserByTokenCookie();
-      if (user) {
-        setState(user);
-      }
-      if (!user && pathname !== "/login/") {
-        // ユーザー情報の取得ができず、ログイン以外のページの場合、ログインページへ遷移
-        router.push(getRouterPushPath("/login/"));
-      }
-    }
+    })();
   }, [state, router, pathname, setUserByTokenCookie]);
 
   const setUserState = useCallback((state?: UserState) => {
