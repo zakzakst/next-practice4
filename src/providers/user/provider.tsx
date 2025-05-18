@@ -31,7 +31,9 @@ export const UserProvider = ({ children }: Props) => {
           if (user) {
             setState(user);
           } else {
-            router.push(getRouterPushPath("/login/"));
+            if (pathname !== "/") {
+              router.push(getRouterPushPath("/login/"));
+            }
           }
         }
       }
