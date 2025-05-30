@@ -1,10 +1,14 @@
 "use client";
 
-import { PostForm } from "@/components/organisms/postForm";
+import { PostForm, PostFormValues } from "@/components/organisms/postForm";
 import { useUserState } from "@/providers/user/hook";
 
 export const MyPostCreate = () => {
   const user = useUserState();
 
-  return <>{user && <PostForm />}</>;
+  const onSubmit = (data: PostFormValues) => {
+    console.log(data);
+  };
+
+  return <>{user && <PostForm onSubmit={onSubmit} />}</>;
 };
